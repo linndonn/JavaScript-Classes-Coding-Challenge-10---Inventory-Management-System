@@ -61,11 +61,11 @@ class Inventory {
 //Add a method addProduct(product) that adds a new product to the inventory.
 addProduct(product) {
     this.products.push(product);
-}
+};
 //Add a method listProducts() that logs all the products details.
 listProducts() {
    return this.products.forEach(product => console.log(product.getDetails()));
-}
+};
 
 //****//Task 4 - Add method listOrders()- Creates a new order and adds it to orders if stock is available **
 placeOrder(orderId, product, quantity) { 
@@ -74,13 +74,22 @@ placeOrder(orderId, product, quantity) {
         this.orders.push(order); 
     } else {
         return `Out of Stock: ${product.name}. Amount in Stock: ${product.stock}`; 
-    }
-}
+    };
+};
 //Task 4 - Add method listOrders()
 listOrders() { 
     this.orders.forEach(order => console.log(order.getOrderDetails())); 
-}
-}
+
+};
+//******Task 5 - Implemented Product Restocking*****
+restockProduct(productId, quantity){
+//Add a method restockProduct(productId, quantity) in the Inventory class. The method should increase the stock of the product
+let product = this.products.find(product => product.id === productId); //Finds product based on productId
+        if (product) {
+            product.stock += quantity;
+        };
+        };
+        };
 
 //Test Data Task 3
 const inventory = new Inventory();
@@ -94,3 +103,8 @@ inventory.listOrders();
 // Expected output: "Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400"
 console.log(prod1.getDetails());
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
+
+//Test Data Task 5 
+inventory.restockProduct(101, 5);
+console.log(prod1.getDetails()); 
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 8"
