@@ -55,19 +55,42 @@ console.log(prod1.getDetails());
 class Inventory {
     constructor() {
         this.products = [];
+        //****Task 4 -Adding a orders array to Inventory Class****/
+        this.orders = [];
 };
 //Add a method addProduct(product) that adds a new product to the inventory.
 addProduct(product) {
     this.products.push(product);
-};
+}
 //Add a method listProducts() that logs all the products details.
 listProducts() {
-    this.products.forEach(product => console.log(product.getDetails()));
+   return this.products.forEach(product => console.log(product.getDetails()));
+}
+
+//****//Task 4 - Add method listOrders()- Creates a new order and adds it to orders if stock is available **
+placeOrder(orderId, product, quantity) { 
+    if (product.stock >= quantity) {
+        let order  = new Order(orderId, product, quantity); 
+        this.orders.push(order); 
+    } else {
+        return `Out of Stock: ${product.name}. Amount in Stock: ${product.stock}`; 
+    }
+}
+//Task 4 - Add method listOrders()
+listOrders() { 
+    this.orders.forEach(order => console.log(order.getOrderDetails())); 
 }
 }
 
-//Test Data
+//Test Data Task 3
 const inventory = new Inventory();
 inventory.addProduct(prod1);
 inventory.listProducts();
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
+
+// Test Data Task 4
+inventory.placeOrder(601, prod1, 2);
+inventory.listOrders();
+// Expected output: "Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400"
+console.log(prod1.getDetails());
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
